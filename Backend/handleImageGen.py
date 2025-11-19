@@ -2,7 +2,7 @@ import requests
 from PIL import Image
 from huggingface_hub import InferenceClient
 
-HF_TOKEN = "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"
+HF_TOKEN = "abc"
 
 def generate_image_with_huggingface(prompt, save_path="generated_image.png"):
     client = InferenceClient(
