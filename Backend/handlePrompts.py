@@ -16,7 +16,7 @@ def extract_json(response):
 
 def read(prompt):
     newPrompt = f"Write a detailed multi-scene video script based on the following description: {prompt}. Include a clear breakdown of each scene, describing the setting, actions, and transitions between scenes in detail. The response should be structured to guide video creation step-by-step with specific scene information. The response shall be given in a json array format, each scene in one key 'scene' : 1 or 'scene' : 2 depending on which scene it is, and with its description as 'description' : whatever the description is, no furether destructutring from here just the decription (such as setting, actions etc) all in plain text inside the description field itself.Keep it exactly 4 scenes only exact"
-    client = genai.Client(api_key="AIzaSyA0PsrWLqQhu7_H_gFm4BtgOjWMg-gw3I8")
+    client = genai.Client(api_key="Abc")
     response = client.models.generate_content(
         model="gemini-2.5-flash-lite",
         contents=newPrompt,

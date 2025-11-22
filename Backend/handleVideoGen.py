@@ -9,7 +9,7 @@ import time
 
 app = FastAPI()
 
-GOOGLE_APPLICATION_CREDENTIALS = "gen-lang-client-0148532417-b3c7b26e5085.json"
+GOOGLE_APPLICATION_CREDENTIALS = "add-your-security.json"
 
 class RequestBody:
     def __init__(self, prompt, image_path):
@@ -30,7 +30,7 @@ import requests
 
 def poll_veo_operation(operation_name, access_token, max_attempts=20, poll_interval=30, output_file="output.mp4"):
     endpoint = (
-        "https://us-central1-aiplatform.googleapis.com/v1/projects/gen-lang-client-0148532417/locations/us-central1/publishers/google/models/veo-3.0-generate-preview:fetchPredictOperation"
+        "https://us-central1-aiplatform.googleapis.com/v1/projects/PROJECT-ID/locations/us-central1/publishers/google/models/veo-3.0-generate-preview:fetchPredictOperation"
     )
 
     payload = {
@@ -123,7 +123,7 @@ def generate_content(prompt, image_path, output_file="output.mp4"):
             img_b64 = base64.b64encode(img_file.read()).decode("utf-8")
 
         # Model endpoint (Veo with image + text support)
-        endpoint = "https://aiplatform.googleapis.com/v1/projects/gen-lang-client-0148532417/locations/us-central1/publishers/google/models/veo-3.0-generate-preview:predictLongRunning"
+        endpoint = "https://aiplatform.googleapis.com/v1/projects/PROJECT-ID/locations/us-central1/publishers/google/models/veo-3.0-generate-preview:predictLongRunning"
 
         payload = {
             "instances": [
