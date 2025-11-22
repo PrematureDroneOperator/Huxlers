@@ -1,28 +1,25 @@
-import requests
-from PIL import Image
-from huggingface_hub import InferenceClient
+import os
+from google import genai
+from google.genai.types import GenerateImagesConfig
 
-HF_TOKEN = "abc"
+# Path to service account JSON
+GOOGLE_SERVICE_ACCOUNT_JSON = "gen-lang-client-0148532417-b3c7b26e5085.json"
+PROJECT_ID = "gen-lang-client-0148532417"
+LOCATION = "us-central1"  # or your region
 
-def generate_image_with_huggingface(prompt, save_path="generated_image.png"):
-    client = InferenceClient(
-        provider="nebius",
-        api_key=HF_TOKEN,
+def generate_image_with_google(prompt, output_file="output-image.png", image_size="2K"):
+    # Create Vertex AI client
+    client = genai.Client(api_key="AIzaSyD9Ux3uaGffFHZIRTtKH_N2OmdCZRyoqWo")
+    # Generate the image
+    image = client.models.generate_images(
+        model="imagen-4.0-generate-001",
+        prompt=prompt,
+        config=GenerateImagesConfig(
+            image_size=image_size
+        ),
     )
+    # Save first generated image as PNG
+    img_obj = image.generated_images[0].image
+    img_obj.save(output_file)
+    print("done")
 
-    # Generate image (output is a PIL.Image.Image)
-    image = client.text_to_image(
-        prompt,
-        model="black-forest-labs/FLUX.1-dev",
-    )
-    if isinstance(image, Image.Image):
-        image.save(save_path)
-        print(f"Image saved as {save_path}")
-        return save_path
-    else:
-        print("Image generation failed.")
-        return None
-
-# Example usage
-res = generate_image_with_huggingface("orange chubby cat cooking fish kerala cat", "cat.png")
-print(f"Hello , path {res} has been forwarded to PORT - 5173 VIA TCP.\nReturn to Render immediately!!!")
